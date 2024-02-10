@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ИС отдела кадров (сотрудники)</title>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
+        <link th:href = "@{/css/basic.css}" rel = "stylesheet"/>
+    </head>
+    
+    <body>
+        <table cellspacing = "0" cellpadding = "0">
+            <tr th:insert = "~{fragments/basic :: header}"></tr>
+            <tr>
+                <td id = "menu" valign = "top" align = "left" th:insert = "~{fragments/basic :: menu}"></td>
+                
+                <td id = "workspace" valign = "top" align = "left">
+                    
+                    <form method = "post" th:action = "@{/main/employees} + '?page=' + ${page} + '&sort=' + ${column} + ',' + ${direction}">
+                        
+                        <div id = "title">
+                            Сотрудники
+                        </div>
+                        
+                        <table id = "tools" cellspacing = "0" cellpadding = "0">
+                            <tr>
+                                <td align = "left" nowrap>
+                                    Сортировать по:
+                                    <select onchange = "setColumn(this.value)">
+                                        <option value = "id" th:selected = "${column == 'id'}">Ид записи</option>
+                                        <option value = "surname" th:selected = "${column == 'surname'}">Фамилия</option>
+                                        <option value = "name" th:selected = "${column == 'name'}">Имя</option>
+                                        <option value = "patronymic" th:selected = "${column == 'patronymic'}">Отчество</option>
+                                        <option value = "dob" th:selected = "${column == 'dob'}">Дата рождения</option>
+                                        <option value = "education" th:selected = "${column == 'education'}">Образование</option>
+                                        <option value = "phone" th:selected = "${column == 'phone'}">Номер телефона</option>
+                                    </select>
+                                    
+                                    <button type = "button" onclick = "ascSort()">
+                                        По возрастанию
+                                    </button>
+                                    
+                                    <button type = "button" onclick = "descSort()">
+                                        По убыванию
+                                    </button>
+                                </td>
+                                
+                                <td align = "right" nowrap>
+                                    Поиск по:
+                                    <select>
+                                        <option value = "surname">Фамилия</option>
+                                        <option value = "name">Имя</option>
+                                        <option value = "patronymic">Отчество</option>
+                                        <option value = "dob">Дата рождения</option>
+                                    </select>
+                                    
+                                    <input type = "text" placeholder = "Текст для поиска"/>
+                                    
+                                    <button name = "search">
+                                        Поиск
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "table" cellspacing = "0" cellpadding = "0">
+                            <tr align = "center">
+                                <td>Ид записи</td>
+                                <td>Фамилия</td>
+                                <td>Имя</td>
+                                <td>Отчество</td>
+                                <td>Дата рождения</td>
+                                <td>Образование</td>
+                                <td>Номер телефона</td>
+                                <td colspan = "2">
+                                    <button type = "button" onclick = "insert()">
+                                        Создать запись
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <tr th:each = "employee : ${employees}">
+                                <td th:text = "${employee.id}"></td>
+                                <td th:text = "${employee.surname}"></td>
+                                <td th:text = "${employee.name}"></td>
+                                <td th:text = "${employee.patronymic}"></td>
+                                <td th:text = "${#dates.format(employee.dob, 'dd.MM.yyyy')}"></td>
+                                <td th:text = "${employee.education}"></td>
+                                <td th:text = "${employee.phone}"></td>
+                                <td>
+                                    <button type = "button" th:onclick = "'update(' + ${employee.id} + ')'">
+                                        Открыть
+                                    </button>
+                                </td>
+                                <td>
+                                    <button name = "delete" th:value = "${employee.id}">
+                                        Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "pagination" cellspacing = "0" cellpadding = "0" th:insert = "~{fragments/tools :: pagination}"></table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        <script th:inline = "javascript">
+            var page = /*[[${page}]]*/ '';
+            var column = /*[[${column}]]*/ '';
+            var direction = /*[[${direction}]]*/ '';
+        </script>
+        
+        <script th:src = "@{/js/tools.js}"></script>
+        <script th:src = "@{/js/employees.js}"></script>
+        
+    </body>
+</html>

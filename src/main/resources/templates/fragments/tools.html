@@ -1,0 +1,27 @@
+<tr:block th:fragment = "pagination">
+    <td align = "right" nowrap>
+        <button class = "SideButton" type = "button" onclick = "previousPage()">
+            Предыдущая
+        </button>
+        
+        <c th:each = "number : ${previous}">
+            <button class = "PageButton" type = "button" th:onclick = "'openPage(' + ${number} + ')'" th:text = "${number}">
+                 
+            </button>
+        </c>
+        
+        <c th:text = "${page}">
+            
+        </c>
+        
+        <c th:each = "number : ${next}">
+            <button class = "PageButton" type = "button" th:onclick = "'openPage(' + ${number} + ')'" th:text = "${number}">
+                
+            </button>
+        </c>
+        
+        <button class = "SideButton" type = "button" onclick = "nextPage()">
+            Следующая
+        </button>
+     </td>
+</tr:block>

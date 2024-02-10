@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ИС отдела кадров (главная)</title>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
+        <link th:href = "@{/css/basic.css}" rel = "stylesheet"/>
+    </head>
+    
+    <body>
+        <table cellspacing = "0" cellpadding = "0">
+            <tr th:insert = "~{fragments/basic :: header}"></tr>
+            <tr>
+                <td id = "menu" valign = "top" align = "left" th:insert = "~{fragments/basic :: menu}"></td>
+                
+                <td id = "workspace" valign = "top" align = "left">
+                    
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

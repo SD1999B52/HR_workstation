@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ИС отдела кадров (Пользователи)</title>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
+        <link th:href = "@{/css/basic.css}" rel = "stylesheet"/>
+    </head>
+    
+    <body>
+        <table cellspacing = "0" cellpadding = "0">
+            <tr th:insert = "~{fragments/basic :: header}"></tr>
+            <tr>
+                <td id = "menu" valign = "top" align = "left" th:insert = "~{fragments/basic :: menu}"></td>
+                
+                <td id = "workspace" valign = "top" align = "left">
+                    
+                    <form id = "insert" method = "post" th:action = "@{/main/users} + '?page=' + ${page} + '&sort=' + ${column} + ',' + ${direction}" th:object = "${user}">
+                        
+                        <div id = "title">
+                            Пользователи
+                        </div>
+                        
+                        <table id = "tools" cellspacing = "0" cellpadding = "0">
+                            <tr>
+                                <td align = "left" nowrap>
+                                    Сортировать по:
+                                    <select onchange = "setColumn(this.value)">
+                                        <option value = "id" th:selected = "${column == 'id'}">Ид записи</option>
+                                        <option value = "employee" th:selected = "${column == 'employee'}">ФИО сотрудника</option>
+                                        <option value = "username" th:selected = "${column == 'username'}">Логин сотрудника</option>
+                                        <option value = "password" th:selected = "${column == 'password'}">Пароль сотрудника</option>
+                                        <option value = "enabled" th:selected = "${column == 'enabled'}">Возможность входа</option>
+                                        <option value = "authority" th:selected = "${column == 'authority'}">Доступ сотрудника</option>
+                                    </select>
+                                    
+                                    <button type = "button" onclick = "ascSort()">
+                                        По возрастанию
+                                    </button>
+                                    
+                                    <button type = "button" onclick = "descSort()">
+                                        По убыванию
+                                    </button>
+                                </td>
+                                
+                                <td align = "right" nowrap>
+                                    Поиск по:
+                                    <select>
+                                        <option value = "employee">ФИО сотрудника</option>
+                                        <option value = "username">Логин сотрудника</option>
+                                        <option value = "password">Пароль сотрудника</option>
+                                        <option value = "enabled">Возможность входа</option>
+                                        <option value = "authority">Доступ сотрудника</option>
+                                    </select>
+                                    
+                                    <input type = "text" placeholder = "Текст для поиска"/>
+                                    
+                                    <button name = "search">
+                                        Поиск
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "table" cellspacing = "0" cellpadding = "0">
+                            <tr valign = "top" align = "center">
+                                <td>Номер записи</td>
+                                <td>ФИО сотрудника</td>
+                                <td>Логин сотрудника</td>
+                                <td>Пароль сотрудника</td>
+                                <td>Возможность входа</td>
+                                <td>Доступ сотрудника</td>
+                                <td colspan = "2"></td>
+                            </tr>
+                            
+                            <tr class = "EditRow">
+                                <td>
+                                    <input id = "id" type = "text" th:field = "*{id}" readonly/>
+                                </td>
+                                <td>
+                                    <select id = "employee" th:field = "*{employee}">
+                                        <option th:each = "employee : ${employees}" th:value = "${employee.id}" th:text = "${employee.surname + ' ' + employee.name + ' ' + employee.patronymic}"></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input id = "username" type = "text" th:field = "*{username}"/>
+                                </td>
+                                <td>
+                                    <input id = "password" type = "text" th:field = "*{password}"/>
+                                </td>
+                                <td>
+                                    <select id = "enabled" th:field = "*{enabled}">
+                                        <option value = "false">false</option>
+                                        <option value = "true">true</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id = "authority" th:field = "*{authority}">
+                                        <option value = "limited">limited</option>
+                                        <option value = "full">full</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button name = "insert">
+                                        Сохранить
+                                    </button>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            
+                            <tr th:each = "user : ${users}">
+                                <td th:text = "${user.id}"></td>
+                                <td th:text = "${user.employee.surname + ' ' + user.employee.name + ' ' + user.employee.patronymic}"></td>
+                                <td th:text = "${user.username}"></td>
+                                <td th:text = "${user.password}"></td>
+                                <td th:text = "${user.enabled}"></td>
+                                <td th:text = "${user.authority}"></td>
+                                <td>
+                                    <button type = "button" onclick = "update(this)">
+                                        Изменить
+                                    </button>
+                                </td>
+                                <td>
+                                    <button name = "delete" th:value = "${user.id}">
+                                        Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "pagination" cellspacing = "0" cellpadding = "0" th:insert = "~{fragments/tools :: pagination}"></table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        <script th:inline = "javascript">
+            var page = /*[[${page}]]*/ '';
+            var column = /*[[${column}]]*/ '';
+            var direction = /*[[${direction}]]*/ '';
+        </script>
+        
+        <script th:src = "@{/js/tools.js}"></script>
+        <script th:src = "@{/js/users.js}"></script>
+        
+    </body>
+</html>

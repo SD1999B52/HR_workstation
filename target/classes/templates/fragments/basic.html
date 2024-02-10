@@ -1,0 +1,86 @@
+<th:block th:fragment = "header">
+    <td id = "header" colspan = "2">
+        <table cellspacing = "0" cellpadding = "0">
+            <tr>
+                <td align = "left" valign = "middle">
+                    <form action = "/main">
+                        <button id = "mainButton">
+                            ИС отдела кадров
+                        </button>
+                    </form>
+                </td>
+                
+                <td align = "right" valign = "middle">
+                    <form action = "#" th:action = "@{/logout}" method = "post">
+                        <button id = "exitButton">
+                            Выход
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </td>
+</th:block>
+
+<th:block th:fragment = "menu">
+    
+    <form action = "/main/employees" sec:authorize = "hasAuthority('full')">
+        <button class = "MenuButton">
+            Сотрудники
+        </button>
+    </form>
+    
+    <form action = "/main/departments" sec:authorize = "hasAuthority('full')">
+        <button class = "MenuButton">
+            Отделы/Цеха
+        </button>
+    </form>
+    
+    <form action = "/main/users" sec:authorize = "hasAuthority('full')">
+        <button class = "MenuButton">
+            Пользователи
+        </button>
+    </form>
+    
+    <form action = "/main/templates" sec:authorize = "hasAuthority('full')">
+        <button class = "MenuButton">
+            Шаблоны
+        </button>
+    </form>
+    
+    <form action = "/main/documents" sec:authorize = "hasAuthority('full')">
+        <button class = "MenuButton">
+            Документы
+        </button>
+    </form>
+    
+    <input id = "menuInput1" class = "MenuInput" type = "checkbox"/>
+    <label for = "menuInput1" class = "MenuLabel">
+        Документооборот
+    </label>
+    <div id = "submenu1" class = "Submenu">
+        <form action = "/main/incoming">
+            <button class = "SubmenuButton">
+                Входящие
+            </button>
+        </form>
+        <form action = "/main/outgoing">
+            <button class = "SubmenuButton">
+                Исходящие
+            </button>
+        </form>
+        <form action = "/main/create">
+            <button class = "SubmenuButton">
+                Создать
+            </button>
+        </form>
+    </div>
+    
+    <input id = "menuInput2" class = "MenuInput" type = "checkbox"/>
+    <label for = "menuInput2" class = "MenuLabel">
+        Формирование отчетов, справок, документов
+    </label>
+    <div id = "submenu2" class = "Submenu">
+        
+    </div>
+</th:block>
