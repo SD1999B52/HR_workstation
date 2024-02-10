@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ИС отдела кадров (Документы)</title>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
+        <link th:href = "@{/css/basic.css}" rel = "stylesheet"/>
+    </head>
+    
+    <body>
+        <table cellspacing = "0" cellpadding = "0">
+            <tr th:insert = "~{fragments/basic :: header}"></tr>
+            <tr>
+                <td id = "menu" valign = "top" align = "left" th:insert = "~{fragments/basic :: menu}"></td>
+                
+                <td id = "workspace" valign = "top" align = "left">
+                    
+                    <form id = "insert" method = "post" th:action = "@{/main/documents} + '?page=' + ${page} + '&sort=' + ${column} + ',' + ${direction}" enctype = "multipart/form-data">
+                        
+                        <div id = "title">
+                            Документы
+                        </div>
+                        
+                        <table id = "tools" cellspacing = "0" cellpadding = "0">
+                            <tr>
+                                <td align = "left" nowrap>
+                                    Сортировать по:
+                                    <select onchange = "setColumn(this.value)">
+                                        <option value = "id" th:selected = "${column == 'id'}">Ид записи</option>
+                                        <option value = "employee" th:selected = "${column == 'employee'}">Сотрудник</option>
+                                        <option value = "name" th:selected = "${column == 'name'}">Документ</option>
+                                        <option value = "dsize" th:selected = "${column == 'dsize'}">Размер</option>
+                                        <option value = "dod" th:selected = "${column == 'dod'}">Дата загрузки</option>
+                                    </select>
+                                    
+                                    <button type = "button" onclick = "ascSort()">
+                                        По возрастанию
+                                    </button>
+                                    
+                                    <button type = "button" onclick = "descSort()">
+                                        По убыванию
+                                    </button>
+                                </td>
+                                
+                                <td align = "right" nowrap>
+                                    Поиск по:
+                                    <select>
+                                        <option value = "employee">Сотрудник</option>
+                                        <option value = "name">Документ</option>
+                                        <option value = "dod">Дата загрузки</option>
+                                    </select>
+                                    
+                                    <input type = "text" placeholder = "Текст для поиска"/>
+                                    
+                                    <button name = "search">
+                                        Поиск
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "table" cellspacing = "0" cellpadding = "0">
+                            <tr valign = "top" align = "center">
+                                <td>Номер записи</td>
+                                <td>Сотрудник</td>
+                                <td>Документ</td>
+                                <td>Размер</td>
+                                <td>Дата загрузки</td>
+                                <td colspan = "2"></td>
+                            </tr>
+                            
+                            <tr class = "EditRow">
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    <input name = "document" type = "file"/>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    <button name = "upload">
+                                        Загрузить
+                                    </button>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            
+                            <tr th:each = "document : ${documents}">
+                                <td th:text = "${document.id}"></td>
+                                <td th:text = "${document.employee.surname + ' ' + document.employee.name + ' ' + document.employee.patronymic}"></td>
+                                <td th:text = "${document.name}"></td>
+                                <td th:text = "${document.dsize}"></td>
+                                <td th:text = "${#dates.format(document.dod, 'dd.MM.yyyy HH:mm:ss')}"></td>
+                                <td>
+                                    <button type = "button" th:onclick = "'download(' + ${document.id} + ')'">
+                                        Скачать
+                                    </button>
+                                </td>
+                                <td>
+                                    <button name = "delete" th:value = "${document.id}">
+                                        Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "pagination" cellspacing = "0" cellpadding = "0" th:insert = "~{fragments/tools :: pagination}"></table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        <script th:inline = "javascript">
+            var page = /*[[${page}]]*/ '';
+            var column = /*[[${column}]]*/ '';
+            var direction = /*[[${direction}]]*/ '';
+        </script>
+        
+        <script th:src = "@{/js/tools.js}"></script>
+        <script th:src = "@{/js/documents.js}"></script>
+        
+    </body>
+</html>

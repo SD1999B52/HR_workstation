@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ИС отдела кадров (Отделы/цеха)</title>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
+        <link th:href = "@{/css/basic.css}" rel = "stylesheet"/>
+    </head>
+    
+    <body>
+        <table cellspacing = "0" cellpadding = "0">
+            <tr th:insert = "~{fragments/basic :: header}"></tr>
+            <tr>
+                <td id = "menu" valign = "top" align = "left" th:insert = "~{fragments/basic :: menu}"></td>
+                
+                <td id = "workspace" valign = "top" align = "left">
+                    
+                    <form method = "post" th:action = "@{/main/departments} + '?page=' + ${page} + '&sort=' + ${column} + ',' + ${direction}">
+                        
+                        <div id = "title">
+                            Отделы/цеха
+                        </div>
+                        
+                        <table id = "tools" cellspacing = "0" cellpadding = "0">
+                            <tr>
+                                <td align = "left" nowrap>
+                                    Сортировать по:
+                                    <select onchange = "setColumn(this.value)">
+                                        <option value = "id" th:selected = "${column == 'id'}">Ид записи</option>
+                                        <option value = "name" th:selected = "${column == 'name'}">Наименование</option>
+                                        <option value = "number" th:selected = "${column == 'number'}">Номер кабинета/цеха</option>
+                                    </select>
+                                    
+                                    <button type = "button" onclick = "ascSort()">
+                                        По возрастанию
+                                    </button>
+                                    
+                                    <button type = "button" onclick = "descSort()">
+                                        По убыванию
+                                    </button>
+                                </td>
+                                
+                                <td align = "right" nowrap>
+                                    Поиск по:
+                                    <select>
+                                        <option value = "name">Наименование</option>
+                                        <option value = "number">Номер кабинета/цеха</option>
+                                    </select>
+                                    
+                                    <input type = "text" placeholder = "Текст для поиска"/>
+                                    
+                                    <button name = "search">
+                                        Поиск
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "table" cellspacing = "0" cellpadding = "0">
+                            
+                            <tr valign = "top" align = "center">
+                                <td>Ид записи</td>
+                                <td>Наименование</td>
+                                <td>Номер кабинета/цеха</td>
+                                <td colspan = "2"></td>
+                            </tr>
+                            
+                            <tr class = "EditRow">
+                                <td>
+                                    <input type = "text" th:field = "*{department.id}" readonly/>
+                                </td>
+                                <td>
+                                    <input type = "text" th:field = "*{department.name}"/>
+                                </td>
+                                <td>
+                                    <input type = "number" th:field = "*{department.number}"/>
+                                </td>
+                                <td>
+                                    <button name = "insert">
+                                        Сохранить
+                                    </button>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            
+                            <tr th:each = "department : ${departments}">
+                                <td th:text = "${department.id}"></td>
+                                <td th:text = "${department.name}"></td>
+                                <td th:text = "${department.number}"></td>
+                                <td>
+                                    <button type = "button" onclick = "update(this)">
+                                        Изменить
+                                    </button>
+                                </td>
+                                <td>
+                                    <button name = "delete" th:value = "${department.id}">
+                                        Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table id = "pagination" cellspacing = "0" cellpadding = "0" th:insert = "~{fragments/tools :: pagination}"></table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        <script th:inline = "javascript">
+            var page = /*[[${page}]]*/ '';
+            var column = /*[[${column}]]*/ '';
+            var direction = /*[[${direction}]]*/ '';
+        </script>
+        
+        <script th:src = "@{/js/tools.js}"></script>
+        <script th:src = "@{/js/departments.js}"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ИС отдела кадров (аутентификация)</title>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
+        <link th:href = "@{css/auth.css}" rel = "stylesheet"/>
+    </head>
+    
+    <body>
+        <table cellspacing = "0" cellpadding = "0">
+            <tr>
+                <td align = "center">
+                    <form action = "#" th:action = "@{/auth}" method = "post">
+                        <table id = "form" cellspacing = "0" cellpadding = "0">
+                            <tr>
+                                <td colspan = "2" align = "center">
+                                    <table cellspacing = "0" cellpadding = "0">
+                                        <tr>
+                                            <td align = "center">
+                                                <hr id = "lineA" width = "30" size = "2" color = "black"/>
+                                            </td>
+                                            
+                                            <td align = "center">
+                                                <label>Аутентификация</label>
+                                            </td>
+                                            
+                                            <td align = "center">
+                                                <hr id = "lineB" width = "30" size = "2" color = "black"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label>Логин</label>
+                                </td>
+                                <td>
+                                    <input type = "text" name = "username"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label>Пароль</label>
+                                </td>
+                                <td>
+                                    <input type = "password" name = "password"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td colspan = "2" align = "left">
+                                    <input type = "checkbox" name = "remember-me"/>
+                                    <label>Запомнить</label>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    
+                                </td>
+                                <td align = "right">
+                                    <input id = "button" type = "submit" value = "Вход" />
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

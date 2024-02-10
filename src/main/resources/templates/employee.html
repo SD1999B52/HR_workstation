@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ИС отдела кадров (cоздание/изменение данных сотрудника)</title>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
+        <link th:href = "@{/css/basic.css}" rel = "stylesheet"/>
+    </head>
+    
+    <body>
+        <table cellspacing = "0" cellpadding = "0">
+            <tr th:insert = "~{fragments/basic :: header}"></tr>
+            
+            <tr>
+                <td id = "menu" valign = "top" align = "left" th:insert = "~{fragments/basic :: menu}">
+                    
+                </td>
+                
+                <td id = "workspace" valign = "top" align = "left">
+                    
+                    <form method = "post" th:action = "@{/main/employee}">
+                        
+                        <table class = "Tab" cellspacing = "0" cellpadding = "0">
+                            <tr>
+                                <td nowrap>
+                                    <button id = "tab1Button" class = "TabLinks" type = "button">
+                                        Основные данные
+                                        <!--
+                                        сотрудник, паспортные данные 
+                                        -->
+                                    </button>
+                                </td>
+                                <td nowrap>
+                                    <button id = "tab2Button" class = "TabLinks" type = "button">
+                                        Рабочие данные
+                                        <!--
+                                        прием на работу и увольнение, должности,  
+                                        -->
+                                    </button>
+                                </td>
+                                <td nowrap>
+                                    <button id = "tab3Button" class = "TabLinks" type = "button">
+                                        Здоровье
+                                        <!--
+                                        мед. обследования, больничные листы  
+                                        -->
+                                    </button>
+                                </td>
+                                <td nowrap>
+                                    <button id = "tab4Button" class = "TabLinks" type = "button">
+                                        Командировки/обучение
+                                        <!--
+                                        командировки, повышения квалификации  
+                                        -->
+                                    </button>
+                                </td>
+                                <td nowrap>
+                                    <button id = "tab5Button" class = "TabLinks" type = "button">
+                                        Отпуска/поощрения
+                                        <!--
+                                        льготы, отпуска, поощрения  
+                                        -->
+                                    </button>
+                                </td>
+                                <td nowrap id = "space">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <div id = "tab1" class = "TabContent">
+                            <table cellspacing = "0" cellpadding = "0">
+                                
+                                <!--основные данные-->
+                                
+                                <tr>
+                                    <td>
+                                        Ид
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "employee.id" th:value = "${employee.id}" readonly/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Фамилия
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "employee.surname" th:value = "${employee.surname}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Имя
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "employee.name" th:value = "${employee.name}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Отчество
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "employee.patronymic" th:value = "${employee.patronymic}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Дата рождения
+                                    </td>
+                                    <td>
+                                        <input type = "date" name = "employee.dob" th:value = "${#dates.format(employee.dob, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Образование
+                                    </td>
+                                    <td>
+                                        <textarea type = "text" name = "employee.education" th:text = "${employee.education}"></textarea>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Телефон
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "employee.phone" th:value = "${employee.phone}"/>
+                                    </td>
+                                </tr>
+                                
+                                <!--паспортные данные-->
+                                
+                                <input type = "hidden" name = "passport.id" th:value = "${passport.id}"/>
+                                
+                                <tr>
+                                    <td>
+                                        Серия паспорта
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "passport.series" th:value = "${passport.series}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Номер паспорта
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "passport.number" th:value = "${passport.number}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Кем выдан
+                                    </td>
+                                    <td>
+                                        <textarea type = "text" name = "passport.issued" th:text = "${passport.issued}"></textarea>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Дата выдачи
+                                    </td>
+                                    <td>
+                                        <input type = "date" name = "passport.doi" th:value = "${#dates.format(passport.doi, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Место жительства
+                                    </td>
+                                    <td>
+                                        <textarea type = "text" name = "passport.registration" th:text = "${passport.registration}"></textarea>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                        
+                        <div id = "tab2" class = "TabContent">
+                            
+                            <div class = "TableName">
+                                Прием на работу
+                            </div>
+                            
+                            <table id = "hiringTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата приема на работу
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Заметки
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowHiringTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "hiring, status : ${hirings}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'hiring[' + status.index + '].doh'}" th:value = "${#dates.format(hiring.doh, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'hiring[' + status.index + '].notes'}" th:text = "${hiring.notes}"></textarea>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowHiringTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            
+                            <div class = "TableName">
+                                Увольнение
+                            </div>
+                            
+                            <table id = "dismissalTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата увольнения
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Заметки
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowDismissalTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "dismissal, status : ${dismissals}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'dismissal[' + status.index + '].dod'}" th:value = "${#dates.format(dismissal.dod, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'dismissal[' + status.index + '].notes'}" th:text = "${dismissal.notes}"></textarea>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowDismissalTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            
+                            <div class = "TableName">
+                                Должности
+                            </div>
+                            
+                            <table id = "positionTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Отдел/Цех
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Наименование
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Оклад
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата назначения
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowPositionTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "position, status : ${positions}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <select th:name = "${'position[' + status.index + '].dept'}">
+                                            <option th:each = "department : ${departments}" th:value = "${department.id}" th:label = "${department.name}" th:selected = "${department == position.dept}"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type = "text" th:name = "${'position[' + status.index + '].name'}" th:value = "${position.name}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "number" th:name = "${'position[' + status.index + '].salary'}" th:value = "${position.salary}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'position[' + status.index + '].doe'}" th:value = "${#dates.format(position.doe, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowPositionTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            
+                        </div>
+                        
+                        <div id = "tab3" class = "TabContent">
+                            
+                            <div class = "TableName">
+                                Мед. обследования
+                            </div>
+                            
+                            <table id = "physicalTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата обследования
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Медучреждение
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Заключение врачей
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowPhysicalTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "physical, status : ${physicals}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'physical[' + status.index + '].dome'}" th:value = "${#dates.format(physical.dome, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'physical[' + status.index + '].institution'}" th:text = "${physical.institution}"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'physical[' + status.index + '].conclusion'}" th:text = "${physical.conclusion}"></textarea>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowPhysicalTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <div class = "TableName">
+                                Больничные листы
+                            </div>
+                            
+                            <table id = "sickTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Номер больничного листа
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата начала нетрудоспособности
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата конца нетрудоспособности
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowSickTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "sick, status : ${sicks}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <input type = "text" th:name = "${'sick[' + status.index + '].certificate'}" th:value = "${sick.certificate}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'sick[' + status.index + '].dossl'}" th:value = "${#dates.format(sick.dossl, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'sick[' + status.index + '].doesl'}" th:value = "${#dates.format(sick.doesl, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowSickTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </div>
+                        
+                        <div id = "tab4" class = "TabContent">
+                            
+                            <div class = "TableName">
+                                Командировки
+                            </div>
+                            
+                            <table id = "assignmentTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Место командировки
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Номер приказа
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дополнительные сведения
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата начала командировки
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата конца командировки
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowAssignmentTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "assignment, status : ${assignments}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'assignment[' + status.index + '].place'}" th:text = "${assignment.place}"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type = "text" th:name = "${'assignment[' + status.index + '].number'}" th:value = "${assignment.number}"/>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'assignment[' + status.index + '].information'}" th:text = "${assignment.information}"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'assignment[' + status.index + '].dosbt'}" th:value = "${#dates.format(assignment.dosbt, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'assignment[' + status.index + '].doebt'}" th:value = "${#dates.format(assignment.doebt, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowAssignmentTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <div class = "TableName">
+                                Повышения квалификации
+                            </div>
+                            
+                            <table id = "trainingTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дополнительные сведения
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата начала повышения квалификации
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата конца повышения квалификации
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Учреждение
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowTrainingTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "training, status : ${trainings}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'training[' + status.index + '].information'}" th:text = "${training.information}"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'training[' + status.index + '].dosat'}" th:value = "${#dates.format(training.dosat, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'training[' + status.index + '].doeat'}" th:value = "${#dates.format(training.doeat, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'training[' + status.index + '].institution'}" th:text = "${training.institution}"></textarea>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowTrainingTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </div>
+                        
+                        <div id = "tab5" class = "TabContent">
+                            
+                            <div class = "TableName">
+                                Социальные льготы
+                            </div>
+                            
+                            <table id = "benefitTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Наименование
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Номер документа
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата начала действия
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowBenefitTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "benefit, status : ${benefits}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'benefit[' + status.index + '].name'}" th:text = "${benefit.name}"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type = "text" th:name = "${'benefit[' + status.index + '].document'}" th:value = "${benefit.document}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'benefit[' + status.index + '].dosb'}" th:value = "${#dates.format(benefit.dosb, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowBenefitTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <div class = "TableName">
+                                Отпуска
+                            </div>
+                            
+                            <table id = "vacationTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Вид отпуска
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Основание отпуска
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата начала отпуска
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата конца отпуска
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowVacationTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "vacation, status : ${vacations}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <select th:name = "${'vacation[' + status.index + '].tov'}">
+                                            <option value = "basic" label = "Ежегодный основной оплачиваемый отпуск" th:selected = "${vacation.tov == 'basic'}"></option>
+                                            <option value = "additional" label = "Ежегодный дополнительный отпуск" th:selected = "${vacation.tov == 'additional'}"></option>
+                                            <option value = "study" label = "Учебный отпуск" th:selected = "${vacation.tov == 'study'}"></option>
+                                            <option value = "unpaid" label = "Отпуск без сохранения заработной платы" th:selected = "${vacation.tov == 'unpaid'}"></option>
+                                            <option value = "maternity" label = "Отпуск по уходу за ребенком и отпуск по беременности и родам" th:selected = "${vacation.tov == 'maternity'}"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'vacation[' + status.index + '].bases'}" th:text = "${vacation.bases}"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'vacation[' + status.index + '].dosv'}" th:value = "${#dates.format(vacation.dosv, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'vacation[' + status.index + '].doev'}" th:value = "${#dates.format(vacation.doev, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowVacationTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <div class = "TableName">
+                                Поощрения
+                            </div>
+                            
+                            <table id = "encouragementTable" cellspacing = "0" cellpadding = "0">
+                                <tr align = "center">
+                                    <td class = "ColumnName">
+                                        №
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Тип поощрения
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Основание поощрения
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Номер документа
+                                    </td>
+                                    <td class = "ColumnName">
+                                        Дата поощрения
+                                    </td>
+                                    <td class = "ColumnName">
+                                        <button type = "button" onclick = "addRowEncouragementTable()">
+                                            Создать
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr th:each = "encouragement, status : ${encouragements}">
+                                    <td th:text = "${status.index}">
+                                        
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'encouragement[' + status.index + '].toe'}" th:text = "${encouragement.toe}"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea th:name = "${'encouragement[' + status.index + '].bases'}" th:text = "${encouragement.bases}"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type = "text" th:name = "${'encouragement[' + status.index + '].document'}" th:value = "${encouragement.document}"/>
+                                    </td>
+                                    <td>
+                                        <input type = "date" th:name = "${'encouragement[' + status.index + '].doe'}" th:value = "${#dates.format(encouragement.doe, 'yyyy-MM-dd')}"/>
+                                    </td>
+                                    <td>
+                                        <button type = "button" onclick = "deleteRowEncouragementTable(event)">
+                                            Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </div>
+                        
+                        <button id = "saveButton" name = "insert">
+                            Сохранить
+                        </button>
+                        
+                    </form>
+                    
+                </td>
+            </tr>
+        </table>
+        
+        <script th:inline = "javascript">
+            var departments = /*[[${departments}]]*/ '';
+        </script>
+        
+        <script th:src = "@{/js/employee.js}"></script>
+        
+    </body>
+</html>
