@@ -7,7 +7,8 @@ import java.util.List;
 public class EmployeeForm {
     private EmployeeEntity employee;
     private PassportEntity passport;
-
+    private PersonalEntity personal;
+    
     private List<HiringEntity> hiring;
     private List<DismissalEntity> dismissal;
     private List<PositionEntity> position;
@@ -26,14 +27,16 @@ public class EmployeeForm {
         
     }
     
-    public EmployeeForm(EmployeeEntity employee, PassportEntity passport, 
-    List<HiringEntity> hiring, List<DismissalEntity> dismissal, 
-    List<PositionEntity> position, List<PhysicalEntity> physical, 
-    List<SickEntity> sick, List<AssignmentEntity> assignment, 
-    List<TrainingEntity> training, List<BenefitEntity> benefit, 
-    List<VacationEntity> vacation, List<EncouragementEntity> encouragement) {
+    public EmployeeForm(EmployeeEntity employee, PassportEntity passport,
+    PersonalEntity personal,List<HiringEntity> hiring, 
+    List<DismissalEntity> dismissal, List<PositionEntity> position, 
+    List<PhysicalEntity> physical, List<SickEntity> sick, 
+    List<AssignmentEntity> assignment, List<TrainingEntity> training, 
+    List<BenefitEntity> benefit, List<VacationEntity> vacation, 
+    List<EncouragementEntity> encouragement) {
         this.employee = employee;
         this.passport = passport;
+        this.personal = personal;
         this.hiring = hiring;
         this.dismissal = dismissal;
         this.position = position;
@@ -52,6 +55,10 @@ public class EmployeeForm {
 
     public void setPassport(PassportEntity passport) {
         this.passport = passport;
+    }
+
+    public void setPersonal(PersonalEntity personal) {
+        this.personal = personal;
     }
 
     public void setHiring(List<HiringEntity> hiring) {
@@ -100,6 +107,10 @@ public class EmployeeForm {
 
     public PassportEntity getPassport() {
         return passport;
+    }
+
+    public PersonalEntity getPersonal() {
+        return personal;
     }
 
     public List<HiringEntity> getHiring() {

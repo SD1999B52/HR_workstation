@@ -1,5 +1,6 @@
 package com.workstation.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -31,9 +32,9 @@ public class PositionEntity {
     @Column(name = "name", columnDefinition = "text")
     private String name;
     
-    //оклад (/100 РМ)
-    @Column(name = "salary", columnDefinition = "bigint")
-    private Long salary;
+    //оклад
+    @Column(name = "salary", columnDefinition = "numeric(10,2)")
+    private BigDecimal salary;
     
     //дата назначения
     @Column(name = "doe", columnDefinition = "date")
@@ -46,7 +47,7 @@ public class PositionEntity {
     }
 
     public PositionEntity(EmployeeEntity employee, DepartmentEntity dept, 
-    String name, Long salary, Date doe) {
+    String name, BigDecimal salary, Date doe) {
         this.employee = employee;
         this.dept = dept;
         this.name = name;
@@ -70,7 +71,7 @@ public class PositionEntity {
         return name;
     }
     
-    public Long getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
     
@@ -94,7 +95,7 @@ public class PositionEntity {
         this.name = name;
     }
 
-    public void setSalary(Long salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 

@@ -395,6 +395,7 @@ function addRowPositionTable() {
     
     var salaryInput = document.createElement('input');
     salaryInput.setAttribute('type', 'number');
+    salaryInput.setAttribute('step', 'any');
     salaryInput.setAttribute('name', 'position[].salary');
     
     var doeInput = document.createElement('input');

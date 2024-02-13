@@ -1,5 +1,9 @@
 package com.workstation.config;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +16,10 @@ import org.springframework.security.config.annotation.web.configuration
 .EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration
 .WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -25,9 +31,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+    
     @Bean
-    PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
+    }
+    
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new AuthenticationFailureHandler() {
+            
+            @Override
+            public void onAuthenticationFailure(HttpServletRequest request, 
+            HttpServletResponse response, AuthenticationException e) 
+            throws IOException, ServletException {
+                
+                System.out.println("------------------------------------");
+                System.out.println("Неверная пара логин-пароль");
+                System.out.println("IP: " + request.getLocalAddr());
+                System.out.println("Логин: " + request.getParameter("username"));
+                System.out.println("Пароль: " + request.getParameter("password"));
+                
+                response.sendRedirect("/auth");
+            }
+        };
     }
     
     @Override
@@ -57,9 +86,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 
             .and()
                 .formLogin()
+                .failureHandler(authenticationFailureHandler)
                 .permitAll()
                 .loginPage("/auth")
                 .defaultSuccessUrl("/main", true)
+                
             .and()
                 .logout()
                 .permitAll()

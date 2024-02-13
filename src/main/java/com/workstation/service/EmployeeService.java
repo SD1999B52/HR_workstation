@@ -14,6 +14,7 @@ import java.util.List;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final PassportRepository passportRepository;
+    private final PersonalRepository personalRepository;
     private final HiringRepository hiringRepository;
     private final DismissalRepository dismissalRepository;
     private final PositionRepository positionRepository;
@@ -27,15 +28,16 @@ public class EmployeeService {
     private final DepartmentRepository departmentRepository;
 
     public EmployeeService(EmployeeRepository employeeRepository, 
-    PassportRepository passportRepository, HiringRepository hiringRepository, 
-    DismissalRepository dismissalRepository, PositionRepository positionRepository, 
-    PhysicalRepository physicalRepository, SickRepository sickRepository, 
-    AssignmentRepository assignmentRepository, TrainingRepository trainingRepository, 
-    BenefitRepository benefitRepository, VacationRepository vacationRepository, 
-    EncouragementRepository encouragementRepository, 
+    PassportRepository passportRepository, PersonalRepository personalRepository, 
+    HiringRepository hiringRepository, DismissalRepository dismissalRepository, 
+    PositionRepository positionRepository, PhysicalRepository physicalRepository, 
+    SickRepository sickRepository, AssignmentRepository assignmentRepository, 
+    TrainingRepository trainingRepository, BenefitRepository benefitRepository, 
+    VacationRepository vacationRepository, EncouragementRepository encouragementRepository, 
     DepartmentRepository departmentRepository) {
         this.employeeRepository = employeeRepository;
         this.passportRepository = passportRepository;
+        this.personalRepository = personalRepository;
         this.hiringRepository = hiringRepository;
         this.dismissalRepository = dismissalRepository;
         this.positionRepository = positionRepository;
@@ -60,6 +62,11 @@ public class EmployeeService {
         PassportEntity passportEntity = employeeForm.getPassport();
         passportEntity.setEmployee(employeeEntity);
         passportRepository.save(passportEntity);
+        
+        //записываем сотрудника в персональную документацию и сохраняем
+        PersonalEntity personalEntiry = employeeForm.getPersonal();
+        personalEntiry.setEmployee(employeeEntity);
+        personalRepository.save(personalEntiry);
         
         //и тд
         hiringRepository.deleteAllByEmployeeId(employeeEntity.getId());
@@ -157,6 +164,11 @@ public class EmployeeService {
     //получить паспорт по иду сотрудника
     public PassportEntity getPassport(Long id) {
         return passportRepository.findByEmployeeId(id).get();
+    }
+    
+    //получить персональную документацию по иду сотрудника
+    public PersonalEntity getPersonal(Long id) {
+        return personalRepository.findByEmployeeId(id).get();
     }
     
     //получить данные о найме сотрудника

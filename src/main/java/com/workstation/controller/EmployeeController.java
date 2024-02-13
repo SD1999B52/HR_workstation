@@ -48,6 +48,8 @@ public class EmployeeController {
         .getEmployee(id));
         model.addAttribute("passport", employeeService
         .getPassport(id));
+        model.addAttribute("personal", employeeService
+        .getPersonal(id));
         
         //если нет то возвращает пустые list-ы
         model.addAttribute("hirings", employeeService
@@ -82,6 +84,7 @@ public class EmployeeController {
         
         model.addAttribute("employee", new EmployeeEntity());
         model.addAttribute("passport", new PassportEntity());
+        model.addAttribute("personal", new PersonalEntity());
         
         model.addAttribute("hirings", new ArrayList<HiringEntity>());
         model.addAttribute("dismissals", new ArrayList<DismissalEntity>());

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeesService {
     private final EmployeeRepository employeeRepository;
     private final PassportRepository passportRepository;
+    private final PersonalRepository personalRepository;
     private final HiringRepository hiringRepository;
     private final DismissalRepository dismissalRepository;
     private final PositionRepository positionRepository;
@@ -25,14 +26,15 @@ public class EmployeesService {
     private final EncouragementRepository encouragementRepository;
     
     public EmployeesService(EmployeeRepository employeeRepository, 
-    PassportRepository passportRepository, HiringRepository hiringRepository, 
-    DismissalRepository dismissalRepository, PositionRepository positionRepository, 
-    PhysicalRepository physicalRepository, SickRepository sickRepository, 
-    AssignmentRepository assignmentRepository, TrainingRepository trainingRepository, 
-    BenefitRepository benefitRepository, VacationRepository vacationRepository, 
-    EncouragementRepository encouragementRepository) {
+    PassportRepository passportRepository, PersonalRepository personalRepository,
+    HiringRepository hiringRepository, DismissalRepository dismissalRepository,
+    PositionRepository positionRepository, PhysicalRepository physicalRepository,
+    SickRepository sickRepository, AssignmentRepository assignmentRepository,
+    TrainingRepository trainingRepository, BenefitRepository benefitRepository,
+    VacationRepository vacationRepository, EncouragementRepository encouragementRepository) {
         this.employeeRepository = employeeRepository;
         this.passportRepository = passportRepository;
+        this.personalRepository = personalRepository;
         this.hiringRepository = hiringRepository;
         this.dismissalRepository = dismissalRepository;
         this.positionRepository = positionRepository;
@@ -49,6 +51,7 @@ public class EmployeesService {
     //смотреть на карточке
     public void deleteEmployee(Long id) {
         passportRepository.deleteByEmployeeId(id);
+        personalRepository.deleteByEmployeeId(id);
         hiringRepository.deleteByEmployeeId(id);
         dismissalRepository.deleteByEmployeeId(id);
         positionRepository.deleteByEmployeeId(id);

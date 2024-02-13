@@ -186,6 +186,54 @@
                                     </td>
                                 </tr>
                                 
+                                <!--персональные документы-->
+                                <input type = "hidden" name = "personal.id" th:value = "${personal.id}"/>
+                                
+                                <tr>
+                                    <td>
+                                        ИНН
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "personal.inn" th:value = "${personal.inn}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        СНИЛС
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "personal.snils" th:value = "${personal.snils}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Военный билет
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "personal.milid" th:value = "${personal.milid}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        Банковские реквизиты
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "personal.bankdet" th:value = "${personal.bankdet}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        СТД-Р
+                                    </td>
+                                    <td>
+                                        <input type = "text" name = "personal.stdr" th:value = "${personal.stdr}"/>
+                                    </td>
+                                </tr>
+                                
                             </table>
                         </div>
                         
@@ -314,7 +362,7 @@
                                         <input type = "text" th:name = "${'position[' + status.index + '].name'}" th:value = "${position.name}"/>
                                     </td>
                                     <td>
-                                        <input type = "number" th:name = "${'position[' + status.index + '].salary'}" th:value = "${position.salary}"/>
+                                        <input type = "number" step = "any" th:name = "${'position[' + status.index + '].salary'}" th:value = "${position.salary}"/>
                                     </td>
                                     <td>
                                         <input type = "date" th:name = "${'position[' + status.index + '].doe'}" th:value = "${#dates.format(position.doe, 'yyyy-MM-dd')}"/>

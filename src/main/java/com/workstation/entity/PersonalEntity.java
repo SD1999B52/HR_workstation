@@ -1,16 +1,12 @@
 package com.workstation.entity;
 
-import java.util.Date;
-
 import javax.persistence.*;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-//основные реквизиты паспортов сотрудников
+//персональная документация сотрудника
 
 @Entity
-@Table(name = "passports")
-public class PassportEntity {
+@Table(name = "personals")
+public class PersonalEntity {
     
     //номер записи
     @Id
@@ -22,40 +18,38 @@ public class PassportEntity {
     @JoinColumn(name = "employee", nullable = false)
     private EmployeeEntity employee;
     
-    //серия паспорта
-    @Column(name = "series", columnDefinition = "text")
-    private String series;
+    //ИНН
+    @Column(name = "inn", columnDefinition = "text")
+    private String inn;
     
-    //номер паспорта
-    @Column(name = "number", columnDefinition = "text")
-    private String number;
+    //СНИЛС
+    @Column(name = "snils", columnDefinition = "text")
+    private String snils;
     
-    //кем выдан
-    @Column(name = "issued", columnDefinition = "text")
-    private String issued;
+    //военный билет
+    @Column(name = "milid", columnDefinition = "text")
+    private String milid;
     
-    //когда выдан
-    @Column(name = "doi", columnDefinition = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date doi;
+    //банковские реквизиты
+    @Column(name = "bankdet", columnDefinition = "text")
+    private String bankdet;
     
-    //прописка
-    @Column(name = "registration", columnDefinition = "text")
-    private String registration;
+    //СТД-Р
+    @Column(name = "stdr", columnDefinition = "text")
+    private String stdr;
     
-    public PassportEntity() {
+    public PersonalEntity() {
         
     }
-
-    public PassportEntity(EmployeeEntity employee, String series, 
-    String number, String issued, Date doi, String registration) {
+    
+    public PersonalEntity(EmployeeEntity employee, String inn, String snils, 
+    String milid, String bankdet, String stdr) {
         this.employee = employee;
-        this.series = series;
-        this.number = number;
-        this.issued = issued;
-        this.doi = doi;
-        this.registration = registration;
+        this.inn = inn;
+        this.snils = snils;
+        this.milid = milid;
+        this.bankdet = bankdet;
+        this.stdr = stdr;
     }
 
     public Long getId() {
@@ -66,63 +60,63 @@ public class PassportEntity {
         return employee;
     }
 
-    public String getSeries() {
-        return series;
+    public String getInn() {
+        return inn;
     }
 
-    public String getNumber() {
-        return number;
+    public String getSnils() {
+        return snils;
     }
 
-    public String getIssued() {
-        return issued;
+    public String getMilid() {
+        return milid;
     }
 
-    public Date getDoi() {
-        return doi;
+    public String getBankdet() {
+        return bankdet;
     }
 
-    public String getRegistration() {
-        return registration;
+    public String getStdr() {
+        return stdr;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public void setEmployee(EmployeeEntity employee) {
         this.employee = employee;
     }
 
-    public void setSeries(String series) {
-        this.series = series;
+    public void setInn(String inn) {
+        this.inn = inn;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setSnils(String snils) {
+        this.snils = snils;
     }
 
-    public void setIssued(String issued) {
-        this.issued = issued;
+    public void setMilid(String milid) {
+        this.milid = milid;
     }
 
-    public void setDoi(Date doi) {
-        this.doi = doi;
+    public void setBankdet(String bankdet) {
+        this.bankdet = bankdet;
     }
 
-    public void setRegistration(String registration) {
-        this.registration = registration;
+    public void setStdr(String stdr) {
+        this.stdr = stdr;
     }
     
     @Override
     public String toString() {
-        return "Passport [id=" + id 
+        return "Personal [id=" + id 
                 + ", employee=" + employee
-                + ", series=" + series
-                + ", number=" + number
-                + ", issued=" + issued
-                + ", doi=" + doi
-                + ", registration=" + registration
+                + ", inn=" + inn
+                + ", snils=" + snils
+                + ", milid=" + milid
+                + ", bankdet=" + bankdet
+                + ", stdr=" + stdr
                 + "]";
     }
 }
